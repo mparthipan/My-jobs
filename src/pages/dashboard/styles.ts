@@ -235,4 +235,12 @@ export const Container = styled.div`
     align-items: center;
     gap: 8px;
   }
+  .secondary-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .secondary-header img{
+    cursor: pointer;
+  }
 `;

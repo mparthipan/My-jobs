@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ic_profile from "../../assets/icons/ic_profile_header.svg";
 import ic_profile_notification from "../../assets/icons/ic_notification_header.svg";
+import img_sort from "../../assets/icons/img_sort.png"
 import { Container } from "./styles.ts";
 import AccordionHeader from "../../components/AccordionHeader/index.tsx";
 
@@ -336,9 +337,12 @@ const Dashboard = () => {
               ))}
             </div>
             <div className="secondary-container">
+              <div className="secondary-header">
               <div className="search-count-container">
                 <h1>SEARCH RESULTS / </h1>
                 <span>JOBS - {filteredValues?.length} results</span>
+              </div>
+              <img src={img_sort} alt="sort"/>
               </div>
               <div className="card-container">
                 <div className="search-container">
