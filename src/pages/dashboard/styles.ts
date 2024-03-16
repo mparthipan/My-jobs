@@ -218,4 +218,21 @@ export const Container = styled.div`
     background-color: #171c28;
     height: fit-content;
   }
+  .secondary-search{
+    width: 95% !important;
+  }
+  .city{
+    padding-top: 4px;
+  }
+  .dot-container{
+    font-size: 24px;
+    font-weight: 700;
+    position: relative;
+    bottom: 4px;
+  }
+  .createdDate{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 `;

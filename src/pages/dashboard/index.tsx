@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [filteredValues, setFilteredValues] = useState([]);
   const [checkedValues, setCheckedValues] = useState([]);
   const [search, setSearch] = useState("");
+  const [secondarySearch, setSecondarySearch] = useState("");
 
   const [accData, setAccData] = useState<any>({
     lists: [],
@@ -38,10 +39,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const searchResult = filteredValues.filter((x: any) =>
-      x?.role.toLowerCase().includes(search.toLowerCase())
+      x?.role
+        .toLowerCase()
+        .includes(
+          secondarySearch?.length > 0
+            ? secondarySearch.toLowerCase()
+            : search.toLowerCase()
+        )
     );
-    if (searchResult?.length > 0) setFilteredValues(searchResult);
-  }, [search]);
+    setFilteredValues(searchResult);
+  }, [search, secondarySearch]);
 
   useEffect(() => {
     const filterValue = (key) => {
@@ -140,8 +147,9 @@ const Dashboard = () => {
         );
       });
       setSearch("");
+      setSecondarySearch("")
       setFilteredValues(filteredData);
-    } else if (search.length === 0) {
+    } else if (search.length === 0 && secondarySearch.length === 0) {
       setFilteredValues(data);
     }
   }, [accData, filteredValues, data]);
@@ -190,11 +198,24 @@ const Dashboard = () => {
   const onChangeData = (e) => {
     setSearch(e.target.value);
     onClear();
+    setSecondarySearch("");
   };
-
+  const onChangeDataSecondary = (e) => {
+    setSecondarySearch(e.target.value);
+    setSearch("");
+    onClear();
+  };
   const renderJobCard = (item) => {
-    const { role, company_name, address, posted_on, image_url, id } =
-      item || {};
+    const {
+      role,
+      company_name,
+      address,
+      posted_on,
+      image_url,
+      id,
+      noOfApplicants,
+      skillMatch,
+    } = item || {};
     return (
       <div className="card-wrapper" key={id}>
         <section className="job-detail-container">
@@ -223,15 +244,17 @@ const Dashboard = () => {
                 stroke-dashoffset="157"
               ></circle>
               <text className="progress-ring__text" x="60" y="70" fill="white">
-                50%
+                {skillMatch}
               </text>
             </svg>
           </section>
         </section>
         <section className="date-container">
           <p className="createdDate">
-            Posted {posted_on} .
-            <span className="count-of-applicants">10 applicants</span>
+            Posted {posted_on} <span className="dot-container">.</span>
+            <span className="count-of-applicants">
+              {noOfApplicants} applicants
+            </span>
           </p>
           <section className="action-wrapper">
             <button className="apply-button">Apply Now</button>
@@ -318,6 +341,16 @@ const Dashboard = () => {
                 <span>JOBS - {filteredValues?.length} results</span>
               </div>
               <div className="card-container">
+                <div className="search-container">
+                  <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search"
+                    onChange={onChangeDataSecondary}
+                    value={secondarySearch}
+                    className="secondary-search"
+                  />
+                </div>
                 {filteredValues?.length > 0 ? (
                   filteredValues?.map(renderJobCard)
                 ) : (
