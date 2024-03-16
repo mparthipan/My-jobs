@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ic_profile from "../../assets/icons/ic_profile_header.svg";
 import ic_profile_notification from "../../assets/icons/ic_notification_header.svg";
-import img_sort from "../../assets/icons/img_sort.png"
-import { Container } from "./styles.ts";
+import ic_profile from "../../assets/icons/ic_profile_header.svg";
+import img_sort from "../../assets/icons/img_sort.png";
 import AccordionHeader from "../../components/AccordionHeader/index.tsx";
+import { Container } from "./styles.ts";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
-    fetch("http://demo2146080.mockable.io/jobs")
+    fetch("https://demo2146080.mockable.io/jobs")
       .then((response) => response.json())
       .then((data) => {
         const addedFilterKeys = data?.map((x: any) => ({
